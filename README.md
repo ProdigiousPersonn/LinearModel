@@ -1,70 +1,35 @@
-# LinearModel
+# ML From Scratch
 
-A C++ implementation of linear regression using gradient descent optimization. This project demonstrates fundamental machine learning concepts including cost function computation and parameter optimization through gradient descent.
+A C++ machine learning library built from the ground up. Implementing various ML algorithms and models using fundamental linear algebra and optimization techniques.
 
 ## Features
 
-- **Matrix Operations**: Efficient matrix addition and multiplication for linear algebra computations
-- **Linear Regression**: Implementation of univariate and multivariate linear regression
-- **Cost Function**: Mean Squared Error (MSE) calculation for model evaluation
-- **Gradient Descent**: Iterative optimization algorithm to minimize the cost function
-- **CMake Build System**: Cross-platform build configuration
-
-## Mathematical Background
-
-### Linear Regression Model
-
-The hypothesis function for linear regression is:
-
-```
-h(x) = θ₀ + θ₁x₁ + θ₂x₂ + ... + θₙxₙ
-```
-
-Or in vectorized form: `h(x) = θᵀX`
-
-### Cost Function (Mean Squared Error)
-
-```
-J(θ) = (1/2m) Σ(h(xⁱ) - yⁱ)²
-```
-
-Where:
-- `m` is the number of training examples
-- `h(xⁱ)` is the predicted value
-- `yⁱ` is the actual value
-
-### Gradient Descent
-
-The parameter update rule:
-
-```
-θⱼ := θⱼ - α(∂/∂θⱼ)J(θ)
-```
-
-Where:
-- `α` is the learning rate
-- The partial derivative represents the gradient
+- Linear regression with gradient descent optimization
+- Matrix operations library (addition, multiplication, transpose, inverse)
+- L1, L2, MSE, MAE, RMSE cost functions
 
 ## Prerequisites
 
 - C++14 or higher
-- CMake 3.16 or higher
-- A C++ compiler (GCC, Clang, MSVC)
+- CMake 3.16+
+- A C++ compiler (GCC, Clang, or MSVC)
 
-## Building the Project
+## Building
 
-### Unix/Linux/macOS
+### Linux/macOS
 
 ```bash
 # Clone the repository
 git clone <your-repo-url>
 cd LinearModel
 
-# Create build directory
+# Create and enter build directory
 mkdir build && cd build
 
-# Configure and build
+# Configure with CMake
 cmake ..
+
+# Build the project
 cmake --build .
 
 # Run the executable
@@ -78,12 +43,14 @@ cmake --build .
 git clone <your-repo-url>
 cd LinearModel
 
-# Create build directory
+# Create and enter build directory
 mkdir build
 cd build
 
-# Configure and build
+# Configure with CMake
 cmake ..
+
+# Build the project
 cmake --build . --config Release
 
 # Run the executable
@@ -95,52 +62,39 @@ cmake --build . --config Release
 ```
 LinearModel/
 ├── source/
-│   ├── main.cpp              # Entry point and demonstration
-│   └── Helpers/
-│       └── matrix.cpp        # Matrix operations implementation
-├── external/                 # Third-party dependencies
-│   ├── fmt/                  # Formatting library
-│   └── spdlog/              # Logging library
-├── CMakeLists.txt           # CMake configuration
-└── README.md
-```
-
-## Usage Example
-
-```cpp
-#include "Helpers/matrix.cpp"
-
-int main() {
-    // Define matrices
-    Matrix X = {{1, 2},
-                {3, 4}};
-    Matrix Y = {{5, 6},
-                {7, 8}};
-
-    // Matrix addition
-    Matrix sum = addMatrix(X, Y);
-    printMatrix(sum);
-
-    // Matrix multiplication
-    Matrix product = multiplyMatrix(X, Y);
-    printMatrix(product);
-
-    return 0;
-}
+│   ├── main.cpp           # Entry point
+│   └── Helpers/           # Core implementations
+├── external/              # Dependencies (fmt, spdlog)
+└── CMakeLists.txt        # Build configuration
 ```
 
 ## Roadmap
 
-- [x] Basic matrix operations (addition, multiplication)
-- [ ] Implement linear regression hypothesis function
-- [ ] Implement cost function (MSE)
-- [ ] Implement gradient descent algorithm
-- [ ] Add data normalization/feature scaling
-- [ ] Support for CSV data loading
-- [ ] Visualization of cost function convergence
-- [ ] Model serialization and loading
-- [ ] Multiple optimization algorithms (Batch, Stochastic, Mini-batch)
+### Traditional ML
+- [x] Linear regression
+- [ ] Logistic regression
+- [ ] Decision trees
+- [ ] Random forests
+- [ ] K-means clustering
+- [ ] Support Vector Machines
+- [ ] K-Nearest Neighbors
 
+### Deep Learning
+- [ ] Neural networks (feedforward)
+- [ ] Backpropagation
+- [ ] Convolutional Neural Networks
+- [ ] Recurrent Neural Networks
+- [ ] Transformers
+- [ ] Embeddings (Word2Vec, GloVe)
+- [ ] Attention mechanisms
+- [ ] Language models (basic LLM architecture)
+
+### Optimization & Tools
+- [ ] Mini-batch gradient descent
+- [ ] Adam optimizer
+- [ ] Data normalization
+- [ ] Cross-validation
+- [ ] Model serialization
 
 ## License
 
