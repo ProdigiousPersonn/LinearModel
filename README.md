@@ -1,4 +1,4 @@
-# ML From Scratch
+# ML Models
 
 A C++ machine learning library built from the ground up. Implementing various ML algorithms and models using fundamental linear algebra and optimization techniques.
 
