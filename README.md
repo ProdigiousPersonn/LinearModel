@@ -106,7 +106,7 @@ Run the example:
 ### Classification [ ]
 - [ ] **Logistic Regression**
 - [ ] **Evaluation Metrics (Classification):**
-    - [ ] Confusion Matri
+    - [ ] Confusion Matrix
     - [ ] Accuracy, Precision, Recall, F1-Score
     - [ ] ROC Curve and AUC
 - [ ] **K-Nearest Neighbors (KNN)**
