@@ -23,11 +23,13 @@ class SupportVectorMachine {
 
         Matrix X_train;
         Matrix Y_train;
+        Matrix K_cache;
         std::vector<double> alphas;
         std::vector<double> errors;
 
         double kernel(const Matrix& X1, const Matrix& X2);
         double decision(const Matrix& X);
+        double decisionCached(int idx);
         int examineExample(int I2);
         int takeStep(int I1, int I2);
 

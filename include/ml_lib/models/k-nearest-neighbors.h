@@ -1,6 +1,6 @@
 #pragma once
 #include "../math/matrix.h"
-#include "base-model.h"
+#include "gradient-model.h"
 #include <vector>
 
 enum DIST_METRIC {

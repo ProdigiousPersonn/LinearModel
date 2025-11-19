@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <limits>
 
+// The math is making me go insane
+
 SupportVectorMachine::SupportVectorMachine(
     double C,
     double gamma,
@@ -45,6 +47,18 @@ double SupportVectorMachine::decision(const Matrix& X) {
     return result + bias;
 }
 
+double SupportVectorMachine::decisionCached(int idx) {
+    double result = 0.0;
+    int m = this->X_train.rows();
+
+    for (int i = 0; i < m; i++) {
+        if (this->alphas[i] > 0) {
+            result += this->alphas[i] * this->Y_train(i, 0) * K_cache(i, idx);
+        }
+    }
+    return result + bias;
+}
+
 int SupportVectorMachine::takeStep(int I1, int I2) {
     if (I1 == I2) return 0;
 
@@ -66,9 +80,9 @@ int SupportVectorMachine::takeStep(int I1, int I2) {
     }
     if (L == H) return 0; // No room to move
 
-    double k11 = kernel(X_train.row(I1), X_train.row(I1)); // similarity of 1 to itself
-    double k12 = kernel(X_train.row(I1), X_train.row(I2)); // similarity of 1 to 2
-    double k22 = kernel(X_train.row(I2), X_train.row(I2)); // similarity of 2 to itself
+    double k11 = K_cache(I1, I1); // similarity of 1 to itself
+    double k12 = K_cache(I1, I2); // similarity of 1 to 2
+    double k22 = K_cache(I2, I2); // similarity of 2 to itself
     double eta = 2 * k12 - k11 - k22;
 
     if (eta >= 0) return 0; // flat/convex, unable to find max
@@ -95,7 +109,7 @@ int SupportVectorMachine::takeStep(int I1, int I2) {
 
     int m = X_train.rows();
     for (int i = 0; i < m; i++) {
-        errors[i] = decision(X_train.row(i)) - Y_train(i, 0);
+        errors[i] = decisionCached(i) - Y_train(i, 0);
     }
 
     return 1;
@@ -117,6 +131,7 @@ int SupportVectorMachine::examineExample(int I2) {
             if (alphas[i] > 0 && alphas[i] < C) {
                 double diff = abs(errors[i] - E2);
                 if (diff > max_diff)
+                    max_diff = diff;
                     I = i;
             }
         }
@@ -143,6 +158,16 @@ void SupportVectorMachine::fit(const Matrix &X, const Matrix &Y)
     errors = std::vector<double>(m);
     bias = 0.0;
 
+    // Precompute kernel matrix
+    K_cache = Matrix(m, m);
+    for (int i = 0; i < m; i++) {
+        for (int j = i; j < m; j++) {
+            double k_val = kernel(X.row(i), X.row(j));
+            K_cache(i, j) = k_val;
+            K_cache(j, i) = k_val;
+        }
+    }
+
     for (int i = 0; i < m; i++) {
         errors[i] = -Y(i, 0);
     }
@@ -156,7 +181,7 @@ void SupportVectorMachine::fit(const Matrix &X, const Matrix &Y)
     int num_changed = 0;
     bool examine_all = true; // examine all on first iteration
 
-    while ((num_changed > 0 || examineExample) && iterations < max_iteration) {
+    while ((num_changed > 0 || examine_all) && iterations < max_iteration) {
         num_changed = 0;
 
         for (int i = 0; i < m; i++) {
@@ -180,10 +205,9 @@ Matrix SupportVectorMachine::predict(const Matrix &X)
     Matrix predictions(m, 1);
 
     for (int i = 0; i < m; i++) {
-        double val = decision(X.row(i));
-        predictions(i, 0) = (val >= 0) ? 1.0 : -1.0;
+        predictions(i, 0) = decision(X.row(i));
     }
 
-    return predictions;
+    return predictions.sign();
 }
  
