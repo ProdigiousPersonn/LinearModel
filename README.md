@@ -8,6 +8,7 @@ A C++ machine learning library built from the ground up. Implementing various ML
 - **Logistic regression** for binary classification
 - **K-Nearest Neighbors (KNN)** for classification
 - **Support Vector Machines (SVM)** for classification
+- **Decision Trees** for classification with Gini and Entropy impurity measures
 - Matrix operations library (addition, multiplication, transpose, inverse)
 - Loss functions: MSE, MAE, RMSE, L1, L2, Binary Cross-Entropy (BCE)
 - Evaluation metrics:
@@ -133,14 +134,14 @@ Run the examples:
 - [X] **K-Nearest Neighbors (KNN)**
 - [X] **Support Vector Machines (SVMs)**
 
-### Tree-Based Models [ ]
-- [ ] **Decision Trees**
+### Tree-Based Models [~]
+- [X] **Decision Trees**
 - [ ] **Random Forests**
 
 ### Unsupervised Learning [ ]
 - [ ] **K-Means Clustering**
 
-### Deep Learning Foundations [ ]
+### Deep Learning [ ]
 - [ ] **Neural Networks (Feedforward)**
 - [ ] **Backpropagation**
 - [ ] **Optimizers:**
@@ -153,7 +154,7 @@ Run the examples:
 - [ ] **Recurrent Neural Networks (RNNs)** (For sequences)
 
 Stuff I'll probably never get to
-### Modern NLP (Language) [ ]
+### Modern NLP [ ]
 - [ ] **Embeddings (Word2Vec, GloVe)**
 - [ ] **Attention Mechanisms**
 - [ ] **Transformers**
